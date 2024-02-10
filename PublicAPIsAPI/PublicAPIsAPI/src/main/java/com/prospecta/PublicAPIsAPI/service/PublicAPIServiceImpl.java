@@ -67,7 +67,7 @@ public class PublicAPIServiceImpl implements PublicAPIService {
 		                String name = entry.path("API").asText();
 		                String description = entry.path("Description").asText();
 		                String cat = entry.path("Category").asText();
-		                list.add(new EntryDTO(name,cat,description));
+		                list.add(new EntryDTO(name,description,cat));
 		          }
 		        } catch (Exception e) {
 		            e.printStackTrace();
