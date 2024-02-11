@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,7 +18,11 @@ import com.prospecta.PublicAPIsAPI.repository.PubilcAPIRepository;
 public class PublicAPIServiceImpl implements PublicAPIService {
 	
 	public PubilcAPIRepository pr;
-	private String url = "https://api.publicapis.org";
+	
+	@Value("${publicUrl}")
+	private String url;
+	
+	public RestTemplate restTemplate ;
 	
 	
 
@@ -26,6 +31,7 @@ public class PublicAPIServiceImpl implements PublicAPIService {
 	public PublicAPIServiceImpl( PubilcAPIRepository pr) {
 		
 		this.pr = pr;
+		this.restTemplate = new RestTemplate();
 	}
 
 	@Override
@@ -67,7 +73,7 @@ public class PublicAPIServiceImpl implements PublicAPIService {
 		                String name = entry.path("API").asText();
 		                String description = entry.path("Description").asText();
 		                String cat = entry.path("Category").asText();
-		                list.add(new EntryDTO(name,cat,description));
+		                list.add(new EntryDTO(name,description,cat));
 		          }
 		        } catch (Exception e) {
 		            e.printStackTrace();
@@ -80,7 +86,7 @@ public class PublicAPIServiceImpl implements PublicAPIService {
 	@Override
 	public String fetchDataFromAPI(String apiUrl) {
 		
-		 RestTemplate restTemplate = new RestTemplate();
+		// RestTemplate restTemplate = new RestTemplate();
 	       // System.out.println(restTemplate.getForObject(apiUrl, String.class));
 	        return restTemplate.getForObject(apiUrl, String.class);
 	}
