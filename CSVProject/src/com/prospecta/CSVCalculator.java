@@ -6,8 +6,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 import java.util.StringJoiner;
@@ -92,44 +93,49 @@ public class CSVCalculator {
 	 */
 	private static int evaluate(Map<String, Integer> map, String formula) {
 		// TODO Auto-generated method stub
-		Stack<String> operators = new Stack<>();
+		List<String> operators = new ArrayList<>();
 	    
 		for(int i=0;i<formula.length();i++) {
 			if(formula.charAt(i)=='+') {
-				operators.push("+");
+				operators.add("+");
 
 			}
 			else if(formula.charAt(i)=='-') {
-				operators.push("-");
+				operators.add("-");
 			}
 			else if(formula.charAt(i)=='/') {
-				operators.push("/");
+				operators.add("/");
 			}
-			else if(formula.charAt(i)=='/') {
-				operators.push("*");
+			else if(formula.charAt(i)=='*') {
+				operators.add("*");
 			}
 		}
 		
+		
 		 String[] tokens = formula.split("[\\+\\-\\*/]");
 		 
-		 Stack<Integer> values = new Stack<>();
+		 List<Integer> values = new ArrayList<>();
 		 
 		 for(int i=0;i<tokens.length;i++) {
 			 
 			 if(isInteger(tokens[i])) {
-				 values.push(Integer.parseInt(tokens[i]));
+				 values.add(Integer.parseInt(tokens[i]));
 			 }else {
 				 
-				 values.push(map.get(tokens[i]));
+				 values.add(map.get(tokens[i]));
 			 }
 		 }
-		 
-		 int sum = values.pop();
-		 while(!values.isEmpty()) {
-			 int value2 = values.pop();
-			 String op = operators.pop();
-			 
+		 if(values.isEmpty()) {
+			 return 0;
+		 }
+		 int sum = values.get(0);
+		 int i = 1,j=0;
+		 while(i<values.size()) {
+			 int value2 = values.get(i);
+			 String op = operators.get(j);
 			 sum = operations(sum,value2,op);
+			 i++;
+			 j++;
 			 
 		 }
 		 
