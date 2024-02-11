@@ -159,7 +159,9 @@ public class CSVCalculator {
 				sum = a-b;
 				break;
 			case "/":
-				sum= a/b;
+				if(b!=0) {
+					sum= a/b;
+				}
 				break;
 				
 		}

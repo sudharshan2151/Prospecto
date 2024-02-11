@@ -1,0 +1,11 @@
+1. How will you tackle the challenge above? 
+		*First you have have read the input.csv file getting the values by line by line and Map datastructure to store our values while perform operation with the formula we can able to get it.After all operation call the output method and create the output file and write the values from map.
+2. What type of errors you would you check for? 
+		*We have to check for file existance and Arthmetic operations divide by zero.
+		*Check the exceptions for empty lines.
+3. How might a user break your code?
+		 *If the input file `input.csv` is missing or inaccessible, a `FileNotFoundException` will be thrown. While the code skips empty lines, it's essential to ensure they are handled correctly based on your data requirements.
+		 *Ensure the input data adheres to the expected format (`key:value`).
+		 *The code should handle potential formula errors like division by zero or invalid arithmetic operations more comprehensively.
+		 *Consider optimizing the method for evaluating arithmetic expressions, especially for complex formulas.
+          
